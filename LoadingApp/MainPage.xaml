@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LoadingApp.MainPage">
+
+    <StackLayout>
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+        </Frame>
+        <Entry Text="{Binding Url}"/>
+        <Button Command="{Binding OpenCommand}" Text="Open URL"/>
+        <Button Command="{Binding FindDownloadsCommand}" Text="Find file"/>
+
+        <Frame Margin="5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HasShadow="True"
+               BorderColor="Blue">
+            <CollectionView ItemsSource="{Binding Files}" Margin="5" x:Name="collection1">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Margin="5" BackgroundColor="Beige">
+                            <Label Text="{Binding .}" TextColor="Black">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.NavigateCommand, Source={x:Reference collection1}}" CommandParameter="{Binding .}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Frame>
+    </StackLayout>
+
+</ContentPage>

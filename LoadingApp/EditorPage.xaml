@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LoadingApp.EditorPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Finish" Command="{Binding FinishCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Button Command="{Binding SaveEditedCommand}" Text="Save changes"/>
+
+            <Frame Margin="5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HasShadow="True"
+                   BorderColor="Blue">
+                <Editor Text="{Binding FileText}" />
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
