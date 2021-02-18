@@ -15,7 +15,7 @@ namespace LoadingApp.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         private readonly IFileService _fileService;
-        private string _url = @"https://raw.githubusercontent.com/stleary/JSON-java/master/src/test/resources/Issue537.json";
+        private string _url = @"https://support.oneskyapp.com/hc/en-us/articles/208047697-JSON-sample-files";
         private string _openFilePath;
 
         public ContentPage Page { get; set; }
@@ -63,7 +63,37 @@ namespace LoadingApp.ViewModels
         private void FindDownloads()
         {
             Files.Clear();
+
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                FindForAndroid();
+            }
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                FindForiOS();
+            }
+
+
+
+            //Xamarin.Essentials.FilePicker.PickAsync();
+        }
+
+        private void FindForiOS()
+        {
+            _fileService.GetFiles(Callback);
+        }
+
+        private void Callback(string obj)
+        {
+            Files.Add(obj);
+        }
+
+        private void FindForAndroid()
+        {
             var path = _fileService.GetDownloadsPath();
+
+            var all = Directory.GetFiles(path);
+
             var files = Directory.GetFiles(path)
                 .Where(file => file.EndsWith(".json"))
                 .ToList();
